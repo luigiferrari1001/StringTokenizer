@@ -1,2 +1,2 @@
 # StringTokenizer
-Esempio di classe si utilità
+Esempio di classe di utilità
