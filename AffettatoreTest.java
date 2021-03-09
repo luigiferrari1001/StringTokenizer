@@ -43,11 +43,39 @@ public class AffettatoreTest
     @Test
     public void test1()
     {
-        Affettatore affettat1 = new Affettatore("Ciao a tutti");
+        Affettatore affettat1 = new Affettatore("Ciao a tutti", ", \t\n\r\f");
         assertEquals(true, affettat1.hasMoreTokens());
         assertEquals("Ciao", affettat1.nextToken());
         assertEquals(true, affettat1.hasMoreTokens());
         assertEquals("a", affettat1.nextToken());
+        assertEquals(true, affettat1.hasMoreTokens());
+        assertEquals("tutti", affettat1.nextToken());
+        assertEquals(false, affettat1.hasMoreTokens());
+    }
+    
+     @Test
+    public void testCsvESpazi()
+    {
+        Affettatore affettat1 = new Affettatore("Ciao, a, tutti,100", ", \t\n\r\f");
+        assertEquals(true, affettat1.hasMoreTokens());
+        assertEquals("Ciao", affettat1.nextToken());
+        assertEquals(true, affettat1.hasMoreTokens());
+        assertEquals("a", affettat1.nextToken());
+        assertEquals(true, affettat1.hasMoreTokens());
+        assertEquals("tutti", affettat1.nextToken());
+        assertEquals(true, affettat1.hasMoreTokens());
+        assertEquals("100", affettat1.nextToken());
+        assertEquals(false, affettat1.hasMoreTokens());
+    }
+    
+    @Test
+    public void testCsvConDoppiApici()
+    {
+        Affettatore affettat1 = new Affettatore("\"Ciao\",\"con virgola, a\", \"tutti\"");
+        assertEquals(true, affettat1.hasMoreTokens());
+        assertEquals("Ciao", affettat1.nextToken());
+        assertEquals(true, affettat1.hasMoreTokens());
+        assertEquals("con virgola, a", affettat1.nextToken());
         assertEquals(true, affettat1.hasMoreTokens());
         assertEquals("tutti", affettat1.nextToken());
         assertEquals(false, affettat1.hasMoreTokens());
